@@ -3,8 +3,6 @@
 
 Przykłady użycia komendy `ALTER TABLE` w bazie danych **MariaDB**, oparte na wcześniej zdefiniowanym schemacie sklepu internetowego.
 
-Komentarze w języku polskim, kod SQL w języku angielskim – zgodnie z dobrą praktyką dokumentacji technicznej.
-
 ---
 
 ## ✅ Add a new column
