@@ -1,7 +1,6 @@
 # 🛍️ E-commerce Database Schema (MariaDB)
 
 Dokumentacja struktury bazy danych dla sklepu internetowego.  
-Komentarze i opisy w języku polskim, kod SQL w języku angielskim.
 
 ## 👤 Table: `customers`
 
