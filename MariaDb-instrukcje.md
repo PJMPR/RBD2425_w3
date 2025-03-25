@@ -26,14 +26,7 @@ docker pull mariadb
 Dostosuj poniższą komendę do swoich potrzeb:
 
 ```bash
-docker run -d \
-  --name mariadb-container \
-  -e MARIADB_ROOT_PASSWORD=password \
-  -e MARIADB_DATABASE=workdb \
-  -e MARIADB_USER=pjwstk \
-  -e MARIADB_PASSWORD=password \
-  -p 3306:3306 \
-  mariadb
+docker run -d --name mariadb-container -e MARIADB_ROOT_PASSWORD=password -e MARIADB_DATABASE=workdb -e MARIADB_USER=pjwstk -e MARIADB_PASSWORD=password -p 3306:3306 mariadb
 ```
 
 ---
@@ -64,7 +57,7 @@ docker rm mariadb-container
 
 ## 🔌 Połączenie z bazą danych
 
-Możesz użyć dowolnego klienta MySQL/MariaDB (np. **MySQL Workbench**, **phpMyAdmin**, CLI `mysql`) lub połączyć się ręcznie:
+Możesz użyć dowolnego klienta MySQL/MariaDB (np. **Rider**, **MySQL Workbench**, **phpMyAdmin**, CLI `mysql`) lub połączyć się ręcznie:
 
 ### 🔐 Połączenie jako `root`:
 
