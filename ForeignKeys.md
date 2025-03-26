@@ -112,7 +112,3 @@ FOREIGN KEY (product_id) REFERENCES products(product_id);
 - Korzystaj z `ON DELETE` / `ON UPDATE`, by dopasować się do logiki aplikacji
 
 ---
-
-## 📁 Autor
-
-Techniczna dokumentacja SQL – relacje `FOREIGN KEY` na przykładzie sklepu internetowego (MariaDB).
