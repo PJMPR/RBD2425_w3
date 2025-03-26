@@ -1,114 +1,77 @@
-# 🛍️ E-commerce Database Schema (MariaDB)
+# 🛍️ E-commerce Database – ERD Diagram
 
-Dokumentacja struktury bazy danych dla sklepu internetowego.  
+This project represents the structure of a basic e-commerce database system, including customers, products, orders, inventory, and related entities.
 
-## 👤 Table: `customers`
+## 🧩 Entity-Relationship Diagram
 
-Dane klientów sklepu: imię, nazwisko, e-mail, numer telefonu, data rejestracji.
+The following ERD visualizes the main entities and their relationships:
 
-```sql
-CREATE TABLE customers (
-    customer_id INT AUTO_INCREMENT PRIMARY KEY,
-    first_name VARCHAR(50) NOT NULL,
-    last_name VARCHAR(50) NOT NULL,
-    email VARCHAR(100) NOT NULL UNIQUE,
-    phone VARCHAR(20),
-    registration_date DATETIME DEFAULT CURRENT_TIMESTAMP
-);
-```
+![ERD diagram](erd_ecommerce_diagram.png)
 
 ---
 
-## 📍 Table: `addresses`
+## 📋 Included Tables
 
-Adresy klientów – tabela powiązana z `customers`.
+### 1. `customers`
+- `customer_id (PK)`
+- `first_name`
+- `last_name`
+- `email`
+- `registration_date`
 
-```sql
-CREATE TABLE addresses (
-    address_id INT AUTO_INCREMENT PRIMARY KEY,
-    customer_id INT NOT NULL,
-    street VARCHAR(100),
-    city VARCHAR(50),
-    zip_code VARCHAR(10),
-    country VARCHAR(50),
-    FOREIGN KEY (customer_id) REFERENCES customers(customer_id)
-);
-```
+### 2. `addresses`
+- `address_id (PK)`
+- `customer_id (FK)`
+- `street`
+- `city`
+- `zip_code`
+- `country`
 
----
+### 3. `products`
+- `product_id (PK)`
+- `name`
+- `description`
+- `price`
+- `active`
 
-## 🛒 Table: `products`
+### 4. `inventory`
+- `product_id (PK, FK)`
+- `quantity`
+- `last_updated`
 
-Katalog produktów – zawiera nazwę, opis, cenę i informację, czy produkt jest aktywny. Zawiera warunek `CHECK` na cenę.
+### 5. `orders`
+- `order_id (PK)`
+- `customer_id (FK)`
+- `order_date`
+- `status`
 
-```sql
-CREATE TABLE products (
-    product_id INT AUTO_INCREMENT PRIMARY KEY,
-    name VARCHAR(100) NOT NULL,
-    description TEXT,
-    price DECIMAL(10,2) NOT NULL CHECK (price >= 0),
-    active BOOLEAN DEFAULT TRUE
-);
-```
-
----
-
-## 🏬 Table: `inventory`
-
-Stany magazynowe produktów – tabela z aktualizującą się datą i ograniczeniem ilości do wartości >= 0.
-
-```sql
-CREATE TABLE inventory (
-    product_id INT PRIMARY KEY,
-    quantity INT DEFAULT 0 CHECK (quantity >= 0),
-    last_updated DATETIME DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
-    FOREIGN KEY (product_id) REFERENCES products(product_id)
-);
-```
+### 6. `order_items`
+- `order_id (PK, FK)`
+- `product_id (PK, FK)`
+- `quantity`
 
 ---
 
-## 🧾 Table: `orders`
+## 🔗 Relationships
 
-Zamówienia złożone przez klientów – zawiera status zamówienia z ograniczonymi wartościami przez `CHECK`.
-
-```sql
-CREATE TABLE orders (
-    order_id INT AUTO_INCREMENT PRIMARY KEY,
-    customer_id INT NOT NULL,
-    order_date DATETIME DEFAULT CURRENT_TIMESTAMP,
-    status VARCHAR(50) DEFAULT 'new' CHECK (status IN ('new', 'shipped', 'delivered', 'cancelled')),
-    FOREIGN KEY (customer_id) REFERENCES customers(customer_id)
-);
-```
+- `addresses.customer_id` → `customers.customer_id`
+- `inventory.product_id` → `products.product_id`
+- `orders.customer_id` → `customers.customer_id`
+- `order_items.order_id` → `orders.order_id`
+- `order_items.product_id` → `products.product_id`
 
 ---
 
-## 📦 Table: `order_items`
+## 📂 Notes
 
-Pozycje w zamówieniach – relacja wiele-do-wielu pomiędzy zamówieniami i produktami. Ilość musi być większa od zera.
-
-```sql
-CREATE TABLE order_items (
-    order_id INT,
-    product_id INT,
-    quantity INT NOT NULL CHECK (quantity > 0),
-    PRIMARY KEY (order_id, product_id),
-    FOREIGN KEY (order_id) REFERENCES orders(order_id),
-    FOREIGN KEY (product_id) REFERENCES products(product_id)
-);
-```
+- All tables use `INT` for identifiers and `AUTO_INCREMENT` for primary keys.
+- Foreign key constraints should be added via `ALTER TABLE` after initial table creation.
+- Diagram generated automatically with `graphviz`.
 
 ---
 
-## ✅ Summary of CHECK Constraints
+## 🧠 Useful for
 
-W bazie używamy następujących ograniczeń `CHECK`:
-- `price >= 0` w `products`
-- `quantity >= 0` w `inventory`
-- `quantity > 0` w `order_items`
-- `status IN (...)` w `orders`
-
-Dzięki temu zabezpieczamy dane na poziomie bazy.
-
----
+- Database structure documentation
+- Teaching database modeling
+- Quick project onboarding
