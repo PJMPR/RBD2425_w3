@@ -1,25 +1,27 @@
-# 🛍️ E-commerce Database – ERD Diagram
+# 🛒 Baza danych e-commerce – Diagram ERD
 
-This project represents the structure of a basic e-commerce database system, including customers, products, orders, inventory, and related entities.
-
-## 🧩 Entity-Relationship Diagram
-
-The following ERD visualizes the main entities and their relationships:
-
-![ERD diagram](erd_ecommerce_diagram.png)
+Projekt przedstawia strukturę bazy danych dla prostego systemu sklepu internetowego. Uwzględniono tabele: klienci, produkty, zamówienia, stan magazynowy i inne powiązane encje.
 
 ---
 
-## 📋 Included Tables
+## 🧩 Diagram związków encji (ERD)
 
-### 1. `customers`
+Poniżej znajduje się diagram ERD prezentujący główne tabele oraz relacje między nimi:
+
+![Diagram ERD](erd_ecommerce_diagram.png)
+
+---
+
+## 📋 Uwzględnione tabele
+
+### 1. `customers` (klienci)
 - `customer_id (PK)`
 - `first_name`
 - `last_name`
 - `email`
 - `registration_date`
 
-### 2. `addresses`
+### 2. `addresses` (adresy)
 - `address_id (PK)`
 - `customer_id (FK)`
 - `street`
@@ -27,32 +29,32 @@ The following ERD visualizes the main entities and their relationships:
 - `zip_code`
 - `country`
 
-### 3. `products`
+### 3. `products` (produkty)
 - `product_id (PK)`
 - `name`
 - `description`
 - `price`
 - `active`
 
-### 4. `inventory`
+### 4. `inventory` (magazyn)
 - `product_id (PK, FK)`
 - `quantity`
 - `last_updated`
 
-### 5. `orders`
+### 5. `orders` (zamówienia)
 - `order_id (PK)`
 - `customer_id (FK)`
 - `order_date`
 - `status`
 
-### 6. `order_items`
+### 6. `order_items` (pozycje zamówień)
 - `order_id (PK, FK)`
 - `product_id (PK, FK)`
 - `quantity`
 
 ---
 
-## 🔗 Relationships
+## 🔗 Relacje
 
 - `addresses.customer_id` → `customers.customer_id`
 - `inventory.product_id` → `products.product_id`
@@ -62,16 +64,17 @@ The following ERD visualizes the main entities and their relationships:
 
 ---
 
-## 📂 Notes
+## 🧠 Uwagi
 
-- All tables use `INT` for identifiers and `AUTO_INCREMENT` for primary keys.
-- Foreign key constraints should be added via `ALTER TABLE` after initial table creation.
-- Diagram generated automatically with `graphviz`.
+- Wszystkie tabele wykorzystują `INT` jako klucz główny (`AUTO_INCREMENT`).
+- Klucze obce należy dodać oddzielnie za pomocą `ALTER TABLE`.
+- Diagram został wygenerowany automatycznie z użyciem biblioteki `graphviz`.
 
 ---
 
-## 🧠 Useful for
+## 📌 Zastosowanie
 
-- Database structure documentation
-- Teaching database modeling
-- Quick project onboarding
+- Dokumentacja struktury bazy danych
+- Nauka modelowania relacyjnego
+- Materiał pomocniczy do projektów i ćwiczeń
+
